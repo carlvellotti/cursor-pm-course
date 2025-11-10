@@ -29,10 +29,42 @@ export default {
   },
   theme: 'dark',
   head: function Head({ title, frontMatter }: { title?: string; frontMatter?: any }) {
-    const siteUrl = 'https://cursorforpms.vercel.app'
+    const siteUrl = 'https://cursorforpms.com'
     const pageTitle = title ? `${title} – Cursor for Product Managers` : 'Learn Cursor IN Cursor!'
     const description = frontMatter?.description || 'Learn Cursor IN Cursor! An interactive course teaching AI-powered productivity, file operations, and product management workflows.'
     const ogImage = frontMatter?.ogImage || `${siteUrl}/images/cursorforpmsthumbnail.png`
+
+    // Get current page URL for canonical tag
+    const canonicalUrl = typeof window !== 'undefined' ? `${siteUrl}${window.location.pathname}` : siteUrl
+
+    // Generate breadcrumb structured data
+    const pathname = typeof window !== 'undefined' ? window.location.pathname : '/'
+    const pathSegments = pathname.split('/').filter(segment => segment)
+
+    const breadcrumbList = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": siteUrl
+        },
+        ...pathSegments.map((segment, index) => {
+          const url = `${siteUrl}/${pathSegments.slice(0, index + 1).join('/')}`
+          const name = segment.split('-').map(word =>
+            word.charAt(0).toUpperCase() + word.slice(1)
+          ).join(' ')
+          return {
+            "@type": "ListItem",
+            "position": index + 2,
+            "name": name,
+            "item": url
+          }
+        })
+      ]
+    }
 
     return (
       <>
@@ -41,19 +73,22 @@ export default {
         <meta name="description" content={description} />
         <meta name="google-site-verification" content="Oenxq7BatQp09RlIUs43VkDpdoOQUWlUhqwxYxw49xQ" />
 
+        {/* Canonical URL */}
+        <link rel="canonical" href={canonicalUrl} />
+
         {/* Favicon */}
         <link rel="icon" type="image/png" href="/favicon.png" />
         <link rel="apple-touch-icon" href="/favicon.png" />
 
         {/* Google Analytics */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XBF1JD68VY"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-0RV8H9JG6V"></script>
         <script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-XBF1JD68VY');
+              gtag('config', 'G-0RV8H9JG6V');
             `
           }}
         />
@@ -84,6 +119,16 @@ export default {
             type="application/ld+json"
             dangerouslySetInnerHTML={{
               __html: JSON.stringify(frontMatter.schema)
+            }}
+          />
+        )}
+
+        {/* Breadcrumb Structured Data */}
+        {pathSegments.length > 0 && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(breadcrumbList)
             }}
           />
         )}

@@ -5,7 +5,7 @@ Disallow: /api/*
 Disallow: /_next/*
 
 # Host
-Host: https://cursorforpms.vercel.app
+Host: https://cursorforpms.com
 
 # Sitemaps
-Sitemap: https://cursorforpms.vercel.app/sitemap.xml
+Sitemap: https://cursorforpms.com/sitemap.xml
