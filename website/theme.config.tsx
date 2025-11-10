@@ -135,7 +135,7 @@ export default {
       </>
     )
   },
-  primaryHue: 169,
+  primaryHue: 145,
   sidebar: {
     defaultMenuCollapseLevel: 1,
     toggleButton: true

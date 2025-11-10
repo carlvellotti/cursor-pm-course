@@ -3,9 +3,9 @@
 :root {
   --font-sans: 'SF Mono', 'Monaco', 'Courier New', monospace;
   --font-heading: 'SF Mono', 'Monaco', 'Courier New', monospace;
-  --nextra-primary-hue: 169deg;
-  --nextra-primary-saturation: 85%;
-  --nextra-primary-lightness: 38%;
+  --nextra-primary-hue: 145deg;
+  --nextra-primary-saturation: 44%;
+  --nextra-primary-lightness: 35%;
 }
 
 /* Apply fonts */
@@ -121,17 +121,17 @@ strong {
   margin-bottom: 0.25rem;
 }
 
-/* Color scheme - Teal (#1DD3B0) - DARK MODE ONLY */
+/* Color scheme - Forest Green (#317F4E) - DARK MODE ONLY */
 .dark {
-  --nextra-primary-hue: 169deg;
-  --nextra-primary-saturation: 85%;
-  --nextra-primary-lightness: 48%;
+  --nextra-primary-hue: 145deg;
+  --nextra-primary-saturation: 44%;
+  --nextra-primary-lightness: 35%;
 }
 
 .dark .nextra-content code:not(pre code) {
-  background-color: rgba(29, 211, 176, 0.1);
-  border: 1px solid rgba(29, 211, 176, 0.3);
-  color: #1DD3B0;
+  background-color: rgba(49, 127, 78, 0.1);
+  border: 1px solid rgba(49, 127, 78, 0.3);
+  color: #317F4E;
   padding: 0.2em 0.4em;
   border-radius: 4px;
 }
@@ -145,7 +145,7 @@ strong {
 }
 
 .dark .nextra-content a {
-  color: #1DD3B0;
+  color: #317F4E;
   text-decoration: none;
 }
 
@@ -175,7 +175,7 @@ strong {
 
 /* Copied state */
 .dark button[title="Copied"] {
-  background-color: #1DD3B0 !important;
+  background-color: #317F4E !important;
 }
 
 /* Enable word-wrap for long lines in code blocks */
