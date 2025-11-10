@@ -32,7 +32,7 @@ export default {
     const siteUrl = 'https://cursorforpms.vercel.app'
     const pageTitle = title ? `${title} – Cursor for Product Managers` : 'Learn Cursor IN Cursor!'
     const description = frontMatter?.description || 'Learn Cursor IN Cursor! An interactive course teaching AI-powered productivity, file operations, and product management workflows.'
-    const ogImage = frontMatter?.ogImage || `${siteUrl}/images/cursorforpmsvs.png`
+    const ogImage = frontMatter?.ogImage || `${siteUrl}/images/cursorforpmsthumbnail.png`
 
     return (
       <>
