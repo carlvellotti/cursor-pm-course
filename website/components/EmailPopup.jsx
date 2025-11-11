@@ -168,7 +168,7 @@ export default function EmailPopup() {
           }
 
           .beehiiv-embed {
-            height: 350px !important;
+            height: 500px !important;
           }
         }
       `}</style>
