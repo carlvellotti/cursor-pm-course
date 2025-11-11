@@ -76,7 +76,7 @@ export default function EmailPopup() {
           className="beehiiv-embed"
           data-test-id="beehiiv-embed"
           frameBorder="0"
-          scrolling="no"
+          scrolling="auto"
           style={{
             width: '100%',
             height: '190px',
@@ -165,6 +165,10 @@ export default function EmailPopup() {
         @media (max-width: 640px) {
           .popup-container {
             width: 95%;
+          }
+
+          .beehiiv-embed {
+            height: 350px !important;
           }
         }
       `}</style>
