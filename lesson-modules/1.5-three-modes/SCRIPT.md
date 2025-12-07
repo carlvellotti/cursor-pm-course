@@ -290,9 +290,9 @@ Fantastic work! You now have the complete Cursor AI Pane toolkit
 You can switch between modes based on what you need
 You can use web search to supplement your knowledge
 And you can tackle complex multi-step projects with Plan mode
-Next up: Module 1.7 is about Project Rules
+Next up: Module 1.6 is about Project Rules
 Project Rules let you customize how Cursor behaves for your specific workflow
 You'll set up rules for writing PRDs, analyzing data, and other common PM tasks
 It's how you make Cursor work exactly the way YOU work
-STOP: Ready to move on when you are - type /start-1-7 to continue
+STOP: Ready to move on when you are - type /start-1-6 to continue
 USER: Acknowledges
