@@ -1,0 +1,3 @@
+[submodule "Instructor files"]
+	path = Instructor files
+	url = https://github.com/carlvellotti/cursor-pm-instructor.git
