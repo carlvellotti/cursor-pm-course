@@ -1,7 +1,7 @@
 ---
 title: "3.0: Setup & Download"
 description: "Download the Nano Banana module and start learning AI image generation with Gemini 3 Pro"
-keywords: "nano banana, gemini image generation, AI images, claude code, setup"
+keywords: "nano banana, gemini image generation, AI images, cursor, setup"
 ---
 
 ## 3.0: Setup & Download
@@ -51,7 +51,7 @@ cd ~/Documents && \
 curl -L https://github.com/carlvellotti/claude-code-pm-course/releases/download/nano-banana-v1.0/nano-banana.zip -o nano-banana.zip && \
 unzip nano-banana.zip -d nano-banana && \
 cd nano-banana && \
-claude "/start-3-1-1"
+cursor .
 ```
 
 **What this does:**
@@ -59,8 +59,9 @@ claude "/start-3-1-1"
 2. Downloads the Nano Banana module files
 3. Extracts them to `nano-banana`
 4. Navigates into the folder
-5. Launches Cursor
-6. Launches you into the first lesson
+5. Opens Cursor in the nano-banana folder
+
+Then type `/start-3-1-1` in the chat to begin!
 
 
 ## Alternative: Manual Download
@@ -71,7 +72,7 @@ If the command above doesn't work:
 2. Extract it to your Documents folder
 3. Open your terminal and run:
 ```bash
-cd ~/Documents/nano-banana && claude
+cd ~/Documents/nano-banana && cursor .
 ```
 4. Type `/start-3-1-1` to begin
 
