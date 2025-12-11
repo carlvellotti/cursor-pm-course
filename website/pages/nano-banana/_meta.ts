@@ -1,5 +1,5 @@
 export default {
-  "setup": "3.0: Setup & API Key",
+  "setup": "3.0: Setup & Download",
   "welcome-first-generation": "3.1.1: Welcome & First Generation",
   "understanding-basics": "3.1.2: Understanding the Basics",
   "consistency-style": "3.1.3: Consistency & Style",
