@@ -4,7 +4,7 @@ description: "Module 3.2.1: Users & Product Visuals - Create personas, journey m
 
 **Do this SILENTLY:**
 
-1. Read `lesson-modules/3.2-pm-use-cases/3.2.1-users-product/SCRIPT.md` - this is your teaching script
+1. Read `lesson-modules/3-nano-banana/3.2-pm-use-cases/3.2.1-users-product/SCRIPT.md` - this is your teaching script
 
 2. Read `.cursor/SCRIPT_INSTRUCTIONS.md` for critical teaching rules
 

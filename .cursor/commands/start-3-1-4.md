@@ -4,7 +4,7 @@ description: "Module 3.1.4: Building Your Style Database - Build a reusable libr
 
 **Do this SILENTLY:**
 
-1. Read `lesson-modules/3.1-intro-image-gen/3.1.4-style-database/SCRIPT.md` - this is your teaching script
+1. Read `lesson-modules/3-nano-banana/3.1-intro-image-gen/3.1.4-style-database/SCRIPT.md` - this is your teaching script
 
 2. Read `.cursor/SCRIPT_INSTRUCTIONS.md` for critical teaching rules
 

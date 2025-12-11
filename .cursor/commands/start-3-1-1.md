@@ -4,7 +4,7 @@ description: "Module 3.1.1: Welcome & First Generation - Set up Gemini API and g
 
 **Do this SILENTLY:**
 
-1. Read `lesson-modules/3.1-intro-image-gen/3.1.1-welcome/SCRIPT.md` - this is your teaching script
+1. Read `lesson-modules/3-nano-banana/3.1-intro-image-gen/3.1.1-welcome/SCRIPT.md` - this is your teaching script
 
 2. Read `.cursor/SCRIPT_INSTRUCTIONS.md` for critical teaching rules
 
