@@ -24,7 +24,7 @@ The full course lives at **[cursorforpms.com](https://cursorforpms.com)** - 3 mo
 This course uses Cursor's Agents view. Open Cursor, start a new project, open the Agents view (`Cmd+I` / `Ctrl+I`), and paste:
 
 ```text
-Help me install fullstackpm.com/cli and start Cursor for Product Managers
+Fetch fullstackpm.com/cli and help me start Cursor for Product Managers
 ```
 
 The AI sets up the course materials in your project and walks you through starting Module 1.1.
