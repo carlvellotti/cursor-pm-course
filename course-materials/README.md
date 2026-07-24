@@ -17,7 +17,7 @@ Welcome to the interactive Cursor course for Product Managers!
 **1. Make sure you opened this folder in Cursor:**
 - You should see `.cursor`, `company-context`, and `lesson-modules` in the File Explorer
 
-**2. Open Composer:**
+**2. Open the Agents view:**
 - Press `Cmd+I` (Mac) or `Ctrl+I` (Windows)
 
 **3. Start the first module:**
@@ -70,5 +70,5 @@ These commands are defined in the `.cursor/` folder and guide you through each m
 
 This course teaches you Cursor **by using Cursor**. You'll work with real files, real company context (TaskFlow), and real PM workflows. Claude is your guide, but you're driving the learning.
 
-Ready to start? Type `/start-1-1` in Composer!
+Ready to start? Type `/start-1-1` in the Agents view!
 

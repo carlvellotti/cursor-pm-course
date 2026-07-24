@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 export default {
   logo: <span style={{ fontWeight: 600 }}>Cursor for Product Managers</span>,
   project: {
-    link: 'https://github.com/carlvellotti/cursor-pm-course'
+    link: 'https://github.com/carlvellotti/free-ai-courses/tree/main/cursor-pm-course'
   },
   docsRepositoryBase: 'https://github.com/carlvellotti/cursor-pm-course/blob/main/website',
   feedback: {

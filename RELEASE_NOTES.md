@@ -1,5 +1,7 @@
 # Cursor for Product Managers v1.1.0
 
+> **Superseded (2026-07):** The course is now delivered by the FSPM CLI (fullstackpm.com/cli), not GitHub release zips. These notes describe the retired ZIP release flow and are kept for historical reference only — do not follow the Getting Started steps below. The zip release stays downloadable until the release assets are retired.
+
 ## 🚀 What's New
 
 ### Complete Course - All Modules Included!
