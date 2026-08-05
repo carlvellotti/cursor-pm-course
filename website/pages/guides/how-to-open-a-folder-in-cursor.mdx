@@ -1,0 +1,164 @@
+---
+title: 'How to Open a Folder in Cursor (and Fix a Missing Sidebar)'
+description: 'How to open a folder in Cursor: File menu, drag and drop, or cursor . in the terminal. Plus markdown preview and the fix when the sidebar shows no files.'
+keywords: 'how to open a folder in cursor, how to open md file in cursor, how to view md files in cursor, how to open new folder in cursor, cursor sidebar missing folders, view reset view locations, cursor explorer empty'
+schema:
+  "@context": "https://schema.org"
+  "@graph":
+    - "@type": "Article"
+      headline: "How to Open a Folder in Cursor (and Fix a Missing Sidebar)"
+      description: "How to open a folder in Cursor: File menu, drag and drop, or cursor . in the terminal. Plus markdown preview and the fix when the sidebar shows no files."
+      author:
+        "@type": "Person"
+        name: "Carl Vellotti"
+        url: "https://fullstackpm.com"
+      datePublished: "2026-08-05"
+      dateModified: "2026-08-05"
+      publisher:
+        "@type": "Organization"
+        name: "Cursor for Product Managers"
+        url: "https://cursorforpms.com"
+    - "@type": "FAQPage"
+      mainEntity:
+        - "@type": "Question"
+          name: "How do I open a folder in Cursor?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "Three ways: click File > Open Folder and pick the folder, drag the folder onto the Cursor window or app icon, or type cursor . in a terminal after installing the shell command from the Command Palette. All three do the same thing; the File menu is the one to remember."
+        - "@type": "Question"
+          name: "Can I open a single markdown file in Cursor without a folder?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "You can, but you lose most of what makes Cursor useful. The AI searches, edits, and reasons over the open folder, so open the folder that contains the file instead, then click the file in the sidebar. If you only want to read a markdown file nicely formatted, press Cmd+Shift+V (Ctrl+Shift+V on Windows) for the preview."
+        - "@type": "Question"
+          name: "Why does my Cursor sidebar show no folders or files?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "Usually the Folders section of the Explorer got hidden. Right-click the Explorer header and check Folders, or open the Command Palette (Cmd+Shift+P / Ctrl+Shift+P), run View: Reset View Locations, and restart Cursor. If the whole sidebar is gone, you probably hit Cmd+B / Ctrl+B, which toggles it."
+        - "@type": "Question"
+          name: "How do I preview a markdown file in Cursor?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "Open the .md file and press Cmd+Shift+V on Mac or Ctrl+Shift+V on Windows to open the rendered preview. Press Cmd+K then V (Ctrl+K then V) to show the preview side by side with the raw text, which updates live as you type."
+        - "@type": "Question"
+          name: "Can I open two folders in Cursor at the same time?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "Yes. The simple way is a second window: File > New Window, then open the other folder there. The advanced way is File > Add Folder to Workspace, which puts both folders in one sidebar, but that also means the AI sees both projects at once, which is usually not what you want."
+---
+
+# How to Open a Folder in Cursor (and Fix a Missing Sidebar)
+
+*Last updated: August 5, 2026*
+
+Every tutorial says "open your project in Cursor" as if that step were obvious. If you're a PM coming from Google Docs and Notion, it isn't: Cursor doesn't open documents, it opens **folders**, and the first time you double-click a lone `.md` file instead, you get a weirdly empty window that looks broken.
+
+This page is the missing step. How to open a folder (three ways), why Cursor insists on folders in the first place, how to actually read markdown files once you're in, and what to do when the sidebar shows no files at all, which is a real and maddening bug with a two-command fix.
+
+## Why Cursor opens folders, not files
+
+Cursor is a fork of VS Code, a programmer's editor, and programmers work on projects, which are folders full of files. Cursor's own [first-project guide](https://cursor.com/help/getting-started/first-project) starts with exactly one instruction: File > Open Folder. Everything the AI does is scoped to that folder: the Agent "can search your codebase, edit files, and run terminal commands" within it, and the `@` context menu lets you [point it at specific files and folders](https://cursor.com/help/customization/context) inside it.
+
+For a PM the translation is simple: **the folder is the AI's working memory.** Open a folder containing your PRDs, research notes, and meeting summaries, and the AI can search and connect all of it. Open one file in isolation and you've hired a brilliant assistant, then locked them in a closet with a single sheet of paper. This is also why [Cursor rules](/guides/cursor-rules-for-non-developers) live in the folder itself, and why my course has you [create a dedicated course folder](/getting-started/opening-course-folder) before anything else.
+
+So the habit to build: one folder per project, and always open the folder, never the file.
+
+## Way 1: File > Open Folder (the reliable one)
+
+1. Open Cursor.
+2. Click **File > Open Folder** (on Mac, just **Open** also works and lets you pick a folder).
+3. Select the folder and click **Open**.
+
+First time opening any folder, Cursor asks **"Do you trust the authors of the files in this folder?"** For your own folders, click **Yes, I trust the authors**. This is a standard editor security prompt, not a warning that something is wrong.
+
+To create a brand-new folder for a new project, you don't need to leave the dialog: in the Open Folder picker, click **New Folder**, name it (`q3-launch`, `cursor-course`), and open it. An empty folder is a perfectly good starting point; that's exactly [how the course begins](/getting-started/opening-course-folder).
+
+Cursor remembers what you've opened, so next time **File > Open Recent** is faster than browsing.
+
+## Way 2: Drag and drop
+
+Drag a folder from Finder (Mac) or File Explorer (Windows) onto the Cursor window, or onto the Cursor icon in the Dock. Same result as the File menu. One caveat from experience and the [Cursor forum](https://forum.cursor.com/t/sidebar-is-hidden-by-default-everytime-i-open-a-new-folder/145944/1): depending on your layout settings, a newly opened folder can land you in the agent-first view rather than the file tree. If that disorients you, the sidebar section below covers getting your bearings back.
+
+## Way 3: `cursor .` in the terminal
+
+If you're comfortable with a terminal (and after [my course](/), you will be), this is the fastest way: navigate to the folder and type `cursor .` — meaning "open Cursor here." The dot is the folder you're standing in.
+
+It requires a one-time setup, per the [long-running forum thread](https://forum.cursor.com/t/how-to-open-cursor-from-terminal/3757) on exactly this:
+
+1. Open Cursor.
+2. Press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows) to open the Command Palette.
+3. Type **Shell Command: Install 'cursor' command** and select it.
+4. Open a **new** terminal window (the command doesn't reach terminals that are already open).
+
+Then:
+
+```bash
+cd ~/Documents/my-project
+cursor .
+```
+
+One quirk worth knowing as of August 2026: on newer Cursor layouts, `cursor .` may open the agent-centered Agents window instead of the classic editor. If you want the classic file-and-editor view, run `cursor . --classic`, or turn off **Open Agents Window on startup** in Cursor Settings > Agents (added in version 3.3.30), both per [this forum thread with official replies](https://forum.cursor.com/t/impossible-to-open-a-repository-from-the-command-line/160069).
+
+## How to open and view markdown files in Cursor
+
+Once the folder is open, your files live in the **Explorer sidebar** on the left. Click any `.md` file and it opens as raw text: `#` for headings, `**bold**`, the works. That rawness alarms people the first time. Nothing is broken; markdown is a plain-text format, and the editor shows you the plain text.
+
+To *read* it formatted, use the preview. Cursor inherits this from VS Code, and the shortcuts are documented in [VS Code's markdown guide](https://code.visualstudio.com/docs/languages/markdown):
+
+- **`Cmd+Shift+V`** (Mac) / **`Ctrl+Shift+V`** (Windows): open the rendered preview of the current file.
+- **`Cmd+K` then `V`** / **`Ctrl+K` then `V`**: preview side by side with the raw text, updating live as you type. This is my default when editing [a PRD](/guides/write-a-prd-in-cursor).
+
+You can also right-click the file's tab and choose **Open Preview**. More shortcuts worth the muscle memory are in the [keyboard shortcuts guide](/guides/cursor-keyboard-shortcuts).
+
+Two related notes. First, you technically *can* open a single `.md` file via File > Open File, but the AI side of Cursor works on the open folder, so you're giving up the main event; open the containing folder instead. Second, markdown is Cursor's native language but not its only one — the [Excel and CSV guide](/guides/can-cursor-read-excel-files) covers what happens with spreadsheet files.
+
+## Fix: the sidebar isn't showing your folders
+
+This is the scary one, so here's the reassurance up front: **your files are fine.** This is a display problem, and it has an official fix.
+
+The symptom: you open a folder, but the Explorer sidebar shows only OPEN EDITORS, OUTLINE, and TIMELINE, with no file tree anywhere. It's a recurring bug report on the Cursor forum ([one](https://forum.cursor.com/t/explorer-sidebar-shows-no-file-tree-only-open-editors-outline-timeline/152563), [two](https://forum.cursor.com/t/explorer-not-working-in-cursor/147489), [three](https://forum.cursor.com/t/files-panel-is-gone-cant-find-a-way-to-reopen/144348)), and Cursor's support team gives the same escalation each time. In order:
+
+1. **Check you didn't just hide the sidebar.** `Cmd+B` (Mac) / `Ctrl+B` (Windows) toggles it, and it's easy to hit by accident (one forum reply confesses to hitting it instead of Ctrl+V). If the whole left panel is gone, this is it.
+2. **Un-hide the Folders section.** Right-click any section header in the Explorer (like OPEN EDITORS) and make sure **Folders**, or your folder's name, is checked in the menu.
+3. **Reset the layout.** Open the Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`), run **View: Reset View Locations**, then restart Cursor. This resets the entire interface layout to defaults and is the fix that [resolved the Windows case above](https://forum.cursor.com/t/explorer-not-working-in-cursor/147489) after even a full reinstall hadn't.
+4. **Still nothing?** Run **View: Open View...** from the Command Palette and search for Explorer/Folders, and try opening a completely different folder to see whether the problem follows you.
+
+**View: Reset View Locations** is worth memorizing beyond this bug: it's the universal "put my Cursor window back the way it was" command for any time you've dragged a panel somewhere strange.
+
+If the sidebar is fine but you've landed in an agent-first layout with no file tree in sight, that's a layout choice, not a bug — switch to the editor layout or press `Cmd+E`, as covered in the terminal section above.
+
+## Opening a second folder (or switching projects)
+
+Three situations, three answers:
+
+- **Switch projects:** File > Open Folder (or Open Recent) in the same window. The new folder replaces the old one, and open files from the old project close. Nothing is lost; it's all still on disk.
+- **Two projects at once:** **File > New Window** (`Cmd+Shift+N` / `Ctrl+Shift+N`), then open the second folder there. Two windows, two folders, two separate AI contexts. This is what I do when comparing my course folder against a client project.
+- **Two folders in one window:** **File > Add Folder to Workspace** creates a multi-root workspace, a VS Code feature Cursor inherits ([VS Code docs](https://code.visualstudio.com/docs/editing/workspaces/multi-root-workspaces)). Honest advice: skip it. It's built for developers juggling related codebases, and for PM work it mostly means the AI sees two unrelated projects at once. Separate windows are cleaner.
+
+## You've got the folder open. Now what?
+
+Opening the folder is step zero; the interesting part is what the AI does with it. Press `Cmd+I` / `Ctrl+I` and you're talking to the Agent about everything in that folder — which mode to use for what is its own topic, covered in [Cursor modes explained](/guides/cursor-modes-explained).
+
+If you want the guided version, I made a **free course that runs inside Cursor itself**: you [install Cursor](/getting-started/installation), [open a new folder and paste one prompt](/getting-started/opening-course-folder), and the AI teaches you the rest hands-on — no videos, no code required. [Start here](/). By the end of module one, "open a folder" will feel as unremarkable as opening a browser tab.
+
+## FAQ
+
+### How do I open a folder in Cursor?
+
+Three ways: click **File > Open Folder** and pick the folder, drag the folder onto the Cursor window or app icon, or type `cursor .` in a terminal after installing the shell command from the Command Palette. All three do the same thing; the File menu is the one to remember.
+
+### Can I open a single markdown file in Cursor without a folder?
+
+You can, but you lose most of what makes Cursor useful. The AI searches, edits, and reasons over the open folder, so open the folder that contains the file instead, then click the file in the sidebar. If you only want to read a markdown file nicely formatted, press `Cmd+Shift+V` (`Ctrl+Shift+V` on Windows) for the preview.
+
+### Why does my Cursor sidebar show no folders or files?
+
+Usually the Folders section of the Explorer got hidden. Right-click the Explorer header and check **Folders**, or open the Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`), run **View: Reset View Locations**, and restart Cursor. If the whole sidebar is gone, you probably hit `Cmd+B` / `Ctrl+B`, which toggles it.
+
+### How do I preview a markdown file in Cursor?
+
+Open the `.md` file and press `Cmd+Shift+V` on Mac or `Ctrl+Shift+V` on Windows to open the rendered preview. Press `Cmd+K` then `V` (`Ctrl+K` then `V`) to show the preview side by side with the raw text, which updates live as you type.
+
+### Can I open two folders in Cursor at the same time?
+
+Yes. The simple way is a second window: **File > New Window**, then open the other folder there. The advanced way is **File > Add Folder to Workspace**, which puts both folders in one sidebar, but that also means the AI sees both projects at once, which is usually not what you want.

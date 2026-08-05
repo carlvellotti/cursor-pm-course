@@ -1,0 +1,227 @@
+---
+title: "Cursor Rules for Non-Developers: A PM's Setup Guide"
+description: "Cursor rules explained in plain English for PMs: .cursor/rules and .mdc files, user rules, skills vs the old commands, plus copy-paste starter rules."
+keywords: 'cursor rules, .cursor/rules, mdc file cursor, cursor rules for product managers, cursor user rules, cursor skills, cursor commands, cursor rules non developers'
+schema:
+  "@context": "https://schema.org"
+  "@graph":
+    - "@type": "Article"
+      headline: "Cursor Rules for Non-Developers: A PM's Setup Guide"
+      description: "Cursor rules explained in plain English for PMs: .cursor/rules and .mdc files, user rules, skills vs the old commands, plus copy-paste starter rules."
+      author:
+        "@type": "Person"
+        name: "Carl Vellotti"
+        url: "https://fullstackpm.com"
+      datePublished: "2026-08-05"
+      dateModified: "2026-08-05"
+      publisher:
+        "@type": "Organization"
+        name: "Cursor for Product Managers"
+        url: "https://cursorforpms.com"
+    - "@type": "FAQPage"
+      mainEntity:
+        - "@type": "Question"
+          name: "What is the difference between .cursor/rules and user rules?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "Project rules live in a .cursor/rules folder inside one project as .mdc files, travel with that folder, and can be shared with teammates through version control. User rules live in Cursor's settings, not in any folder, and apply to every project you open. Put project-specific instructions like doc templates in project rules and personal preferences like tone in user rules."
+        - "@type": "Question"
+          name: "Why is my rule being ignored by Cursor?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "The most common cause is the file extension: a plain .md file inside .cursor/rules is ignored because the rules system requires the .mdc extension with frontmatter. Also check the frontmatter itself; a rule with alwaysApply set to false and no description or globs only loads when you @-mention it by name in chat."
+        - "@type": "Question"
+          name: "Can I make one set of Cursor rules apply to every project?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "Not with .mdc files. Project rules only apply inside the folder that contains them, and there is no global .cursor/rules location. For global instructions, use user rules in Cursor's settings. For global reusable workflows, put skills in ~/.cursor/skills in your home folder, which Cursor loads in every project."
+        - "@type": "Question"
+          name: "What happened to .cursor/commands?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "Commands were folded into skills. Existing markdown files in .cursor/commands still load, but the commands page is gone from Cursor's docs, and the built-in /migrate-to-skills skill (Cursor 2.4+) converts old commands into skills automatically. New slash workflows should be written as skills in .cursor/skills/your-name/SKILL.md."
+        - "@type": "Question"
+          name: "Do Cursor rules work if I never touch code?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "Yes. Rules are plain-language instructions that load into every chat, and nothing about them requires code. PMs use them for document templates, tone guidelines, and guardrails like telling the agent to never modify source code. Writing a rule is writing a short markdown file, which is the same skill as writing a good Slack post."
+---
+
+# Cursor Rules for Non-Developers: A PM's Setup Guide
+
+*Last updated: August 5, 2026*
+
+The third time I asked Cursor to draft a PRD, I realized I was retyping the same three paragraphs of instructions: use this template, write in this tone, and please do not touch the codebase. Cursor rules exist so you type those paragraphs exactly once. They are plain-text instruction files the AI reads automatically at the start of every chat, and nothing about them requires knowing how to code.
+
+Most guides on this topic are written for engineers configuring linters. This one is for PMs and other non-developers: what rules are, the difference between project rules (the `.cursor/rules` folder with its `.mdc` files) and user rules, what replaced the old `.cursor/commands` slash commands, and three copy-paste starter rules for PM work. Everything here is checked against [Cursor's docs](https://cursor.com/docs/context/rules) as of August 2026.
+
+## What Cursor Rules Actually Are
+
+Large language models start every conversation with amnesia; they retain nothing between chats. Rules are Cursor's fix: persistent instructions that get [included at the start of the model's context](https://cursor.com/docs/context/rules), so the AI behaves consistently without you repeating yourself.
+
+Cursor supports [four types of rules](https://cursor.com/docs/context/rules): **project rules** (files in `.cursor/rules`, scoped to one project), **user rules** (global, set in Cursor's settings), **team rules** (managed from a dashboard, Team and Enterprise plans only), and **AGENTS.md** (a single plain-markdown file at the project root, the simple alternative). As a PM, you will live in the first two.
+
+A rule is just writing. "Always use our PRD template." "Never edit code files." "Write like a human, not a press release." If you can write a decent Slack post, you can write a rule.
+
+## Project Rules: The .cursor/rules Folder and .mdc Files
+
+Project rules live in a folder called `.cursor/rules` inside your project (if "open a project folder" is itself new territory, my [guide to opening a folder in Cursor](/guides/how-to-open-a-folder-in-cursor) covers it). Each rule is its own file with the `.mdc` extension, which is just markdown plus a small metadata header:
+
+```text
+your-project/
+  .cursor/
+    rules/
+      pm-guardrails.mdc
+      prd-template.mdc
+  docs/
+  src/
+```
+
+One trap catches nearly everyone: **a plain `.md` file inside `.cursor/rules` is silently ignored.** The [docs are explicit](https://cursor.com/docs/context/rules) that rules must use the `.mdc` extension, because the rules system needs the frontmatter header to know when to apply the file. No error, no warning; the rule just never loads. If you want plain markdown with no header, use an `AGENTS.md` file at the project root instead.
+
+The header is three fields that control *when* the rule applies. The four combinations, [straight from the docs](https://cursor.com/docs/context/rules):
+
+| You want the rule to... | Frontmatter |
+| :--- | :--- |
+| Apply to every chat | `alwaysApply: true` |
+| Apply when the AI decides it is relevant | `alwaysApply: false` plus a `description` |
+| Apply when matching files are involved | `alwaysApply: false` plus `globs` patterns |
+| Apply only when you @-mention it | `alwaysApply: false`, nothing else |
+
+For PM use, `alwaysApply: true` covers most of what you need; tone and guardrails should be on all the time. The `globs` option (file patterns like `docs/**/*.md`, meaning "any markdown file under docs") earns its keep once your project has both documents and code and you want document rules staying out of the way otherwise.
+
+You do not have to hand-write any of this. Type `/create-rule` in chat, describe what you want, and [Cursor generates the file](https://cursor.com/docs/context/rules) with correct frontmatter, saved to the right place. You can also see every rule and its status under **Customize → Rules** in the sidebar.
+
+## User Rules: Global, and the ".mdc Everywhere" Workaround Question
+
+People search for a "global .mdc configuration workaround," so here is the honest answer: **there isn't a global `.cursor/rules` folder, by design.** Project rules only apply inside the project that contains them. For instructions that follow you everywhere, Cursor gives you [user rules](https://cursor.com/docs/context/rules): global to your Cursor environment, written in settings rather than in any folder. The docs note that user rules [are not stored on the file system](https://cursor.com/docs/skills) at all, which is exactly why they work in every project.
+
+My split, after a year of running both:
+
+- **User rules** get personality and preferences: "I'm a product manager, not an engineer. Explain technical concepts in plain language. Be concise. Ask clarifying questions before making assumptions."
+- **Project rules** get anything specific to the work in that folder: the PRD template, the customer-facing tone guide, the file-naming convention.
+
+The reason for the split is shareability. Project rules are files, so they travel with the folder and [can be checked into version control](https://cursor.com/docs/context/rules) where teammates inherit them; user rules are yours alone. If you truly want the same *rule files* in several projects, the low-tech workaround is copying your `.cursor/rules` folder between them; for reusable *workflows*, there's a better global option in the skills section below (`~/.cursor/skills`).
+
+## Three Starter Rules for PM Work
+
+Copy these into `.cursor/rules` as `.mdc` files and edit the specifics. They follow the docs' best-practice guidance: [focused, concrete, under 500 lines](https://cursor.com/docs/context/rules).
+
+**1. The "never touch code" guardrail** — `pm-guardrails.mdc`. If you work inside a real product repo, this is the rule that lets you experiment without fear:
+
+```markdown
+---
+alwaysApply: true
+---
+
+- I am a product manager. My work in this project is documents, not code.
+- Never create, edit, or delete files outside the docs/ folder without
+  asking me explicitly first.
+- Never run commands that install software or modify the project setup
+  without explaining what they do in one plain-English sentence and
+  asking first.
+- If I ask for something that would require changing code, tell me, and
+  suggest who or what should make that change instead.
+```
+
+**2. Tone and voice** — `writing-voice.mdc`:
+
+```markdown
+---
+alwaysApply: true
+---
+
+- Write in plain English. Short sentences. No corporate filler.
+- Never use these words: leverage, streamline, robust, seamless, delve.
+- Status updates lead with the takeaway, then supporting detail.
+- When drafting anything customer-facing, flag it as DRAFT at the top
+  and list any claims I should verify before sending.
+```
+
+**3. The PRD template** — `prd-template.mdc`, scoped so it only fires when you're working on docs:
+
+```markdown
+---
+description: PRD structure and conventions for this team
+globs: docs/**/*.md
+alwaysApply: false
+---
+
+- Every PRD uses these sections in order: Problem, Evidence, Goals and
+  Non-Goals, Proposed Solution, Open Questions, Success Metrics.
+- Goals must be measurable. "Improve onboarding" is not a goal;
+  "raise week-1 activation from 34% to 40%" is.
+- Non-Goals is mandatory. If it is empty, ask me what we are explicitly
+  not doing.
+- Open Questions lists the owner next to each question.
+```
+
+That third one pairs naturally with my [write a PRD in Cursor guide](/guides/write-a-prd-in-cursor), which covers the actual drafting workflow. And heed the docs' advice on restraint: [start simple, and add a rule only when the agent makes the same mistake twice](https://cursor.com/docs/context/rules). A pile of speculative rules is noise the model has to wade through.
+
+## Slash Commands: .cursor/commands Is Legacy, Skills Replaced It
+
+If you're searching for the `.cursor/commands` directory structure, the ground has shifted. Commands, the old system of one markdown file per custom slash command in `.cursor/commands/`, were quietly folded into skills: the commands page is gone from Cursor's docs (users [noticed and asked in March 2026](https://forum.cursor.com/t/what-happened-to-commands-best-practice-moving-forward/154238)), and the current docs treat commands purely as [a migration source](https://cursor.com/docs/skills). Existing `.cursor/commands` files still load, so nothing breaks, but new slash workflows belong in skills. If you have old commands, typing `/migrate-to-skills` in chat [converts them automatically](https://cursor.com/docs/skills) (Cursor 2.4+), preserving their type-it-yourself behavior.
+
+## Skills: Reusable Workflows in .cursor/skills
+
+Yes, `.cursor/skills` exists, and as of August 2026 it is where the interesting stuff happens. A [skill](https://cursor.com/docs/context/skills) is a folder containing a `SKILL.md` file that teaches the agent a multi-step workflow. Where a rule says "always write this way," a skill says "here is the whole procedure for producing a competitive analysis."
+
+The folder structure is strict but small. Each skill is a folder named for the skill, containing a file named exactly `SKILL.md`:
+
+```text
+.cursor/
+  skills/
+    weekly-status/
+      SKILL.md
+    competitive-analysis/
+      SKILL.md
+```
+
+The `SKILL.md` file has [two required frontmatter fields](https://cursor.com/docs/context/skills): a `name` (lowercase with hyphens, matching the folder name) and a `description` the agent uses to decide when the skill is relevant. Here's a PM example:
+
+```markdown
+---
+name: weekly-status
+description: Drafts my weekly status update from recent changes in the
+  docs folder. Use when I ask for a status update or weekly summary.
+---
+
+# Weekly status update
+
+1. Look through docs/ for files modified in the last 7 days.
+2. Draft an update with three sections: Shipped, In Progress, Blocked.
+3. Keep it under 200 words, skimmable in one minute.
+4. Show me the draft and wait for edits before calling it done.
+```
+
+You run a skill by typing `/weekly-status` in chat, or the agent invokes it on its own when the description matches what you asked for. To get the old command behavior, where *only* a human typing the slash triggers it, add [`disable-model-invocation: true`](https://cursor.com/docs/skills) to the frontmatter. Two more things worth knowing: `/create-skill` in chat [walks you through building one](https://cursor.com/docs/context/skills), and skills placed in `~/.cursor/skills/` in your home folder [load globally in every project](https://cursor.com/docs/context/skills), which is the real answer to "how do I make my setup follow me everywhere."
+
+Rules versus skills in one line, [per the docs](https://cursor.com/docs/agent/commands): a rule is a short standing instruction included in matching conversations; a skill is a detailed procedure invoked when needed.
+
+## Where to Go Next
+
+Rules are the config layer; the payoff shows up in daily work. Once yours are set, the same setup powers [analyzing data in Cursor](/advanced/analyze-data) (and the honest answer to [whether Cursor can read Excel files](/guides/can-cursor-read-excel-files)), and knowing [which mode you're in](/guides/cursor-modes-explained) plus a few [keyboard shortcuts](/guides/cursor-keyboard-shortcuts) removes most of the remaining friction. If you're brand new, [install Cursor first](/getting-started/installation), then set up your first rule; it takes ten minutes.
+
+All of this comes from my [free Cursor course for product managers](/), which teaches rules, PRDs, and data work through hands-on lessons that run inside Cursor itself. No videos, no upsell.
+
+## FAQ
+
+### What is the difference between .cursor/rules and user rules?
+
+Project rules live in a `.cursor/rules` folder inside one project as `.mdc` files, travel with that folder, and [can be shared with teammates through version control](https://cursor.com/docs/context/rules). User rules live in Cursor's settings, [not on the file system](https://cursor.com/docs/skills), and apply to every project you open. Project-specific instructions like doc templates go in project rules; personal preferences like tone go in user rules.
+
+### Why is my rule being ignored by Cursor?
+
+The most common cause is the file extension: a plain `.md` file inside `.cursor/rules` [is ignored](https://cursor.com/docs/context/rules) because the rules system requires the `.mdc` extension with frontmatter. Also check the frontmatter itself; a rule with `alwaysApply: false` and no description or globs only loads when you @-mention it by name in chat.
+
+### Can I make one set of Cursor rules apply to every project?
+
+Not with `.mdc` files; project rules only apply inside the folder that contains them. For global instructions, use user rules in Cursor's settings. For global reusable workflows, put skills in `~/.cursor/skills` in your home folder, which Cursor [loads in every project](https://cursor.com/docs/context/skills).
+
+### What happened to .cursor/commands?
+
+Commands were folded into skills. Existing files in `.cursor/commands` still load, but the commands page is gone from Cursor's docs ([users noticed in March 2026](https://forum.cursor.com/t/what-happened-to-commands-best-practice-moving-forward/154238)), and the built-in `/migrate-to-skills` skill [converts old commands into skills automatically](https://cursor.com/docs/skills). New slash workflows should be written as skills.
+
+### Do Cursor rules work if I never touch code?
+
+Yes. Rules are plain-language instructions that load into every chat, and nothing about them requires code. PMs use them for document templates, tone guidelines, and guardrails like telling the agent to never modify source code. Writing a rule is writing a short markdown file.

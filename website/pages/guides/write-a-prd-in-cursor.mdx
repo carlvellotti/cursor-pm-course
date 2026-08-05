@@ -1,0 +1,208 @@
+---
+title: 'How to Write a PRD in Cursor (a Working PM Workflow)'
+description: 'Write PRDs in Cursor instead of Google Docs: folder setup, context files, prompting patterns, and a reusable /write-a-prd command. Checked August 2026.'
+keywords: 'cursor prd, prd cursor, write a prd in cursor, /write-a-prd, cursor for product managers, prd workflow, assignment platform prd, prd template cursor'
+schema:
+  "@context": "https://schema.org"
+  "@graph":
+    - "@type": "Article"
+      headline: "How to Write a PRD in Cursor (a Working PM Workflow)"
+      description: "Write PRDs in Cursor instead of Google Docs: folder setup, context files, prompting patterns, and a reusable /write-a-prd command. Checked August 2026."
+      author:
+        "@type": "Person"
+        name: "Carl Vellotti"
+        url: "https://fullstackpm.com"
+      datePublished: "2026-08-05"
+      dateModified: "2026-08-05"
+      publisher:
+        "@type": "Organization"
+        name: "Cursor for Product Managers"
+        url: "https://cursorforpms.com"
+    - "@type": "FAQPage"
+      mainEntity:
+        - "@type": "Question"
+          name: "Is /write-a-prd a built-in Cursor command?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "No. Cursor ships built-in skills like /create-skill and /review, but /write-a-prd is one you create yourself. Add a SKILL.md file at .cursor/skills/write-a-prd/ containing your PRD template and process, and it appears in the slash menu. It takes about ten minutes and you only do it once."
+        - "@type": "Question"
+          name: "Why write a PRD in Cursor instead of Google Docs?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "Context and reuse. In Cursor, the AI can read your strategy docs, personas, and research notes from the same folder while it drafts, so the PRD reflects your actual product instead of generic filler. Your template becomes a reusable command. The tradeoff is collaboration: stakeholder commenting still happens best in Docs, so most PMs draft in Cursor and share elsewhere."
+        - "@type": "Question"
+          name: "Can Cursor write a whole PRD for me?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "It can generate one, and it will read as generic as you'd expect. The workflow that works is different: you make the calls on problem, goals, and scope, and the AI drafts sections from your context files, argues the other side, and reviews the result from engineering and design perspectives. Judgment stays with you; typing and critique get faster."
+        - "@type": "Question"
+          name: "How do I share a PRD written in Cursor with stakeholders?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "The PRD is a markdown file, and markdown pastes cleanly into Google Docs, Notion, and Confluence with headings and lists intact. Preview it formatted first with Cmd+Shift+V. For a polished file, ask the agent to convert it to a Word document or PDF using a tool like pandoc. Keep the markdown version as the source of truth and paste updates out."
+        - "@type": "Question"
+          name: "Do I need to know how to code to write PRDs in Cursor?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "No. This entire workflow is folders, markdown files, and plain-English conversation with the AI. Cursor is a code editor by ancestry, but nothing about writing documents in it requires programming. If you can organize a folder and write an email, you can run this workflow."
+---
+
+# How to Write a PRD in Cursor (a Working PM Workflow)
+
+*Last updated: August 5, 2026*
+
+I've watched a lot of PMs open a blank Google Doc, paste in a PRD template, and start typing from memory. Then I've watched the same PMs write the same PRD in Cursor, where the AI has their strategy doc, their personas, and last month's user interviews sitting in the same folder — and the difference isn't that the AI writes the PRD. It's that the first draft starts from *their* context instead of from zero.
+
+This page is the full workflow: why Cursor beats a doc editor for this job, how to set up the folder, the prompting patterns that work, and how to turn your PRD template into a reusable `/write-a-prd` command. It's the same material I teach in Module 2.1 of my [free Cursor course for PMs](/), compressed into one page.
+
+## Why Cursor Instead of Google Docs
+
+Three reasons, and one honest tradeoff.
+
+**1. The AI can see your context.** In a doc editor with an AI sidebar, the AI sees the doc. In Cursor, the agent can read every file in the folder you have open — your company strategy, your personas, your metrics, your last three PRDs. You point at them by typing `@` and the filename, which pulls that file into the conversation ([Cursor's @-mention docs](https://cursor.com/docs/agent/prompting) cover the mechanics). A draft grounded in "our activation rate is 34% and our target persona is an overloaded team lead" beats a draft grounded in nothing.
+
+**2. Documents become durable, versioned assets.** Your PRD is a markdown file in a folder, not a doc in someone's Drive. Old PRDs become context for new ones. If you use git (optional, genuinely), you get full change history for free. Even without git, the PRDs, the template, and the context all live together and travel together.
+
+**3. Templates become commands.** Your PRD template stops being a doc you copy-paste and becomes a slash command that runs your process. More on this below — it's the best part.
+
+**The tradeoff:** stakeholder collaboration. Google Docs' commenting and suggesting workflow is genuinely good, and your VP is not going to review a PRD in a code editor. The pattern that works is draft-in-Cursor, share-out (covered at the end). If your org's review culture lives entirely in Docs comments, Cursor is your drafting room, not your meeting room.
+
+## Step 1: Set Up the Folder
+
+Cursor works on folders, so make one. If opening a folder in Cursor is new to you, the [folder guide](/guides/how-to-open-a-folder-in-cursor) walks through it. The structure I teach:
+
+```text
+product-workspace/
+├── context/
+│   ├── company.md        # what the company does, strategy, stage
+│   ├── personas.md       # who you build for
+│   ├── product.md        # current product state, key metrics
+│   └── voice.md          # how your team writes (optional)
+├── research/
+│   └── (interview notes, survey exports, competitor notes)
+├── prds/
+│   └── (one markdown file per PRD)
+└── templates/
+    └── prd-template.md
+```
+
+The `context/` folder is the highest-leverage twenty minutes in this whole workflow. Write each file like you're onboarding a smart contractor: plain prose, current numbers, real persona details. These files are what make the difference between generic output and output that sounds like your company. (If you want the AI to *always* follow certain instructions — tone, format, what to never do — that's what rules are for, and I wrote a separate [plain-English guide to Cursor rules](/guides/cursor-rules-for-non-developers).)
+
+Your research doesn't have to be markdown, by the way. Cursor's agent can read CSV exports directly and can be made to handle Excel — details in [can Cursor read Excel files](/guides/can-cursor-read-excel-files).
+
+## Step 2: Draft With the Right Pattern
+
+Open the AI pane (`Cmd+L` — the [shortcuts guide](/guides/cursor-keyboard-shortcuts) has the full keyboard story) and work in Agent mode so the AI can create and edit files. If modes are new to you, [Cursor's modes explained](/guides/cursor-modes-explained) is the five-minute version.
+
+The pattern that fails: "write me a PRD for feature X." You'll get plausible, hollow filler.
+
+The pattern that works is **you decide, it drafts, you interrogate.** Concretely:
+
+```text
+Read @context/company.md, @context/personas.md, and @context/product.md.
+I'm writing a PRD for [feature]. Before drafting anything, ask me the
+5 hardest questions about this feature — the ones an engineering lead
+would ask in the kickoff. One at a time.
+```
+
+Answering hard questions before drafting is the step most PMs skip, and it's where the actual product thinking happens. In my course this phase is literally called "sharpen thinking," and it uses Socratic questioning on purpose: the AI is much better at stress-testing your reasoning than at inventing your reasoning.
+
+Then draft section by section, not all at once:
+
+```text
+Using my answers and the template in @templates/prd-template.md, draft
+only the Problem & Opportunity section of prds/[feature-name].md.
+Keep it to 200 words. Cite which context file each claim comes from.
+```
+
+Section-by-section matters because you review and correct as you go, and every correction improves the sections that follow. When the agent proposes the file changes, `Cmd+Return` accepts and `Cmd+Backspace` rejects ([official shortcut reference](https://cursor.com/docs/reference/keyboard-shortcuts)).
+
+**Iterating on a section** is where inline edit earns its keep: select a flabby paragraph, press `Cmd+K`, type "tighter, half the length, keep the metric." For bigger rewrites, stay in chat: "Rewrite Goals so each goal has a metric and a guardrail. Push back if any goal is unmeasurable."
+
+**The review pass** is the other underused move. Before you share a PRD with humans, run it past simulated ones:
+
+```text
+Read @prds/[feature-name].md three times: once as a skeptical engineering
+lead, once as a designer, once as our persona from @context/personas.md.
+For each, list the top 3 objections. Don't fix anything yet.
+```
+
+## Step 3: Make It a Reusable /write-a-prd Command
+
+Everything above is repeatable, which means it shouldn't live in your head. Cursor lets you package a workflow as a slash command you invoke by typing `/write-a-prd` in chat.
+
+A note on the current state, because this changed recently. Custom slash commands originally shipped as plain markdown files in a `.cursor/commands/` folder ([introduced in Cursor 1.6](https://forum.cursor.com/t/custom-slash-commands-could-you-add-docs-for-that/133599), September 2025). As of August 2026, those files still load, but Cursor's documented mechanism is now [Agent Skills](https://cursor.com/docs/skills): a folder per skill containing a `SKILL.md` file, and a built-in `/migrate-to-skills` command (Cursor 2.4+) that converts old commands automatically. New workflows should be written as skills, so that's what I'll show.
+
+Create the file `.cursor/skills/write-a-prd/SKILL.md` in your workspace (the easy way: type `/create-skill` in chat and describe it — Cursor [ships a built-in skill](https://cursor.com/docs/skills) that builds it for you). Here's a trimmed version of mine:
+
+```md
+---
+name: write-a-prd
+description: Draft a PRD using our template and context files.
+disable-model-invocation: true
+---
+
+# Write a PRD
+
+The user will name a feature. Follow this process exactly:
+
+1. Read context/company.md, context/personas.md, context/product.md,
+   and any relevant files in research/.
+2. Ask the user the 5 hardest questions about the feature, one at a
+   time. Do not draft until all are answered.
+3. Draft the PRD into prds/<feature-name>.md using
+   templates/prd-template.md. Go section by section; pause for
+   approval after each section.
+4. Flag every claim you could not ground in a context file as
+   [ASSUMPTION].
+5. Finish with a review pass: top 3 objections from an engineering
+   lead, a designer, and our primary persona.
+```
+
+The `disable-model-invocation: true` line means only you can trigger it — the agent won't decide to run it on its own, which is the old command behavior ([skills reference](https://cursor.com/docs/skills)). Now `/write-a-prd checkout redesign` runs your entire process. If your team shares the folder through git, everyone gets the same command, which is a quiet way to standardize how PRDs get written without scheduling a meeting about it.
+
+## A Worked Example: An Assignment Platform PRD
+
+To make this concrete, here's the shape of a real run. Say you're the PM for an ed-tech **assignment platform** — teachers create and distribute assignments, students submit, teachers grade — and late submissions are your top support complaint. With context files describing the product and both personas (teacher and student), the kickoff is one line:
+
+```text
+/write-a-prd late submission windows with per-assignment penalty rules
+```
+
+The skill makes the AI ask its five questions first, and with real context they're specific ones: Does a penalty policy belong to the teacher, the course, or the institution? What happens to already-graded resubmissions? Is the goal fewer late submissions or less teacher time spent adjudicating them? By the time you've answered, the Problem section nearly writes itself — and the [ASSUMPTION] flags show you exactly which claims need real data before the review meeting. (In my course you practice this same loop on a fictional company called TaskFlow, with the context files provided, so you can learn the mechanics before touching your real roadmap.)
+
+## Keeping and Sharing PRDs as Markdown
+
+Keep the markdown file as the source of truth. It's plain text, so it will open on anything, diff cleanly, and never be held hostage by a tool you stopped paying for.
+
+For sharing, in order of effort:
+
+- **Paste it.** Markdown pastes into Google Docs, Notion, and Confluence with structure intact — headings, lists, and tables generally survive. Preview it formatted first with `Cmd+Shift+V` ([VS Code's markdown preview](https://code.visualstudio.com/docs/languages/markdown), which Cursor inherits).
+- **Convert it.** Ask the agent: "Convert prds/late-submissions.md to a Word doc." It will typically install and use [pandoc](https://pandoc.org/), the standard document converter, in the terminal on your behalf. You review the .docx and send it.
+- **Round-trip it.** After a Docs review cycle, paste the final text back and tell the agent to merge the changes into the markdown master. Not elegant, but it keeps your source of truth true.
+
+## Practice on a Fake Company First, Free
+
+Module 2.1 of my [free course](/) is this exact workflow as an interactive lesson: Cursor itself walks you through choosing a template, building context, Socratic questioning, and a multi-perspective review, using provided company files so the stakes are zero. [Install Cursor](/getting-started/installation), do the [three-minute course setup](/getting-started/opening-course-folder), and you'll write your first AI-partnered PRD within the hour.
+
+## FAQ
+
+### Is /write-a-prd a built-in Cursor command?
+
+No. Cursor ships built-in skills like `/create-skill` and `/review`, but `/write-a-prd` is one you create yourself. Add a `SKILL.md` file at `.cursor/skills/write-a-prd/` containing your PRD template and process, and it appears in the slash menu. It takes about ten minutes and you only do it once.
+
+### Why write a PRD in Cursor instead of Google Docs?
+
+Context and reuse. In Cursor, the AI can read your strategy docs, personas, and research notes from the same folder while it drafts, so the PRD reflects your actual product instead of generic filler. Your template becomes a reusable command. The tradeoff is collaboration: stakeholder commenting still happens best in Docs, so most PMs draft in Cursor and share elsewhere.
+
+### Can Cursor write a whole PRD for me?
+
+It can generate one, and it will read as generic as you'd expect. The workflow that works is different: you make the calls on problem, goals, and scope, and the AI drafts sections from your context files, argues the other side, and reviews the result from engineering and design perspectives. Judgment stays with you; typing and critique get faster.
+
+### How do I share a PRD written in Cursor with stakeholders?
+
+The PRD is a markdown file, and markdown pastes cleanly into Google Docs, Notion, and Confluence with headings and lists intact. Preview it formatted first with `Cmd+Shift+V`. For a polished file, ask the agent to convert it to a Word document or PDF using a tool like pandoc. Keep the markdown version as the source of truth and paste updates out.
+
+### Do I need to know how to code to write PRDs in Cursor?
+
+No. This entire workflow is folders, markdown files, and plain-English conversation with the AI. Cursor is a code editor by ancestry, but nothing about writing documents in it requires programming. If you can organize a folder and write an email, you can run this workflow.

@@ -1,0 +1,164 @@
+---
+title: "Can Cursor Read Excel Files? The Honest Answer (2026)"
+description: "Can Cursor read Excel files? Not directly — .xlsx is binary. The two workarounds that actually work for PMs, a CSV analysis walkthrough, and verification habits."
+keywords: 'can cursor read excel files, cursor xlsx, cursor excel, cursor read spreadsheet, cursor csv analysis, cursor analyze excel data, cursor xlsx not supported'
+schema:
+  "@context": "https://schema.org"
+  "@graph":
+    - "@type": "Article"
+      headline: "Can Cursor Read Excel Files? The Honest Answer (2026)"
+      description: "Can Cursor read Excel files? Not directly — .xlsx is binary. The two workarounds that actually work for PMs, a CSV analysis walkthrough, and verification habits."
+      author:
+        "@type": "Person"
+        name: "Carl Vellotti"
+        url: "https://fullstackpm.com"
+      datePublished: "2026-08-05"
+      dateModified: "2026-08-05"
+      publisher:
+        "@type": "Organization"
+        name: "Cursor for Product Managers"
+        url: "https://cursorforpms.com"
+    - "@type": "FAQPage"
+      mainEntity:
+        - "@type": "Question"
+          name: "Can Cursor read Excel files directly?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "No. An .xlsx file is a binary format, and Cursor's chat cannot read it as text. The attach button intentionally rejects .xlsx, and @-mentioning or dragging one in mangles the bytes. The reliable paths are exporting the sheet to CSV, which Cursor reads directly, or asking the agent to read the .xlsx with a small script, which it writes and runs itself."
+        - "@type": "Question"
+          name: "What is the fastest way to get Excel data into Cursor?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "Export the sheet as a CSV: File, Save As, CSV in Excel, one export per tab. Save it into your open project folder, @-mention it in chat, and ask your question. A Cursor team member confirmed CSV is the smoother path, since plain text is read directly and accurately with no scripting detour."
+        - "@type": "Question"
+          name: "Does converting .xlsx to CSV lose anything?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "Yes: formulas become their computed values, and formatting, charts, and extra tabs are dropped, since CSV holds one tab of plain values. For analyzing the data, values are what you want anyway. If the formulas or formatting matter, ask the agent to read the .xlsx with a script instead, or use a converter tool that dumps formulas and formatting as text."
+        - "@type": "Question"
+          name: "Can Cursor analyze data or just read it?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "It analyzes. Ask in plain English for dedupes, pivots, segment summaries, or funnel math, and the agent either reasons over small files directly or writes and runs a small script for anything bigger. The script does the arithmetic deterministically, which is more trustworthy than a language model doing mental math over thousands of rows."
+        - "@type": "Question"
+          name: "Should I use Cursor or Claude Code for spreadsheet analysis?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "They handle it nearly the same way: neither reads .xlsx natively, and both write scripts to analyze data. Cursor makes sense if you already live there and like seeing files in an editor. Claude Code is terminal-only and shines for repeated monthly jobs built around saved, rerunnable scripts. Pick whichever you already have open."
+---
+
+# Can Cursor Read Excel Files? The Honest Answer (2026)
+
+*Last updated: August 5, 2026*
+
+Short answer: **no, not directly — and yes, easily, with one step.** An `.xlsx` file is a binary format, a zipped bundle of XML rather than readable text, and Cursor's chat cannot ingest it the way it ingests a CSV or a markdown file. But the workaround is genuinely a thirty-second detour, and once your data is in a readable format, Cursor is a legitimately good analysis tool for the spreadsheet chores that eat PM afternoons.
+
+I checked all of this against Cursor's current behavior and the Cursor team's own statements as of August 2026, because this corner of Cursor has sharp edges that most answers gloss over. Here is what actually happens with an Excel file, the two workarounds that work, a concrete walkthrough analyzing an export, and the verification habits that keep a wrong number out of your board deck.
+
+## Why Cursor Can't Read .xlsx (and What Happens If You Try)
+
+There are two ways to get a file into Cursor's chat, and Excel files fail differently in each. A Cursor team member [spelled out the mechanics on the forum in July 2026](https://forum.cursor.com/t/unable-to-attach-spreadsheets-when-clicking-the-paperclip-icon-from-cursor-agents/166305):
+
+- **The paperclip attach button** uploads a file's contents to the model, so it only accepts formats the model reads directly: images, PDFs, and text formats like `.csv`, `.txt`, `.md`, and `.json`. It rejects `.xlsx` on purpose.
+- **Dragging the file in (or @-mentioning it)** inserts a *reference* to the file rather than its contents. No format filter, so the `.xlsx` slips in — but the agent still can't read the binary directly and has to parse it with a script.
+
+It gets worse than "doesn't work" if you force it. A [confirmed bug report from July 2026](https://forum.cursor.com/t/cursor-cant-handle-attached-docx-files/165095) showed that when binary Office files are @-referenced or dragged into chat, Cursor reads them as plain text, which irreversibly mangles the bytes before they reach the model. A Cursor employee confirmed it's a bug on their side and gave the interim guidance that matches my experience: export to `.csv`, `.txt`, or `.md` and attach that, or let the agent open the `.xlsx` with a tool — which works but burns more tokens.
+
+None of this is Cursor being uniquely limited, by the way. This is how most AI coding tools treat binary spreadsheets, including Claude Code. The difference is entirely in the workaround.
+
+## Workaround 1: Export to CSV (Do This One)
+
+The move that solves 90% of cases: in Excel, **File → Save As → CSV**, one export per tab you care about. Save it into the folder you have [open as a project in Cursor](/guides/how-to-open-a-folder-in-cursor), then @-mention it in chat and ask your question. Cursor reads CSV natively — the Cursor team has recommended exactly this [since 2024](https://forum.cursor.com/t/cant-attach-xlsx-files-to-context/19411), and in the [July 2026 thread](https://forum.cursor.com/t/unable-to-attach-spreadsheets-when-clicking-the-paperclip-icon-from-cursor-agents/166305) called CSV "the smoother path" because plain text reaches the model directly and accurately, no scripting detour.
+
+What you give up in the conversion: formulas collapse to their computed values, and formatting, charts, and the other tabs disappear, because a CSV is one tab of plain values. For analysis, values are what you wanted anyway. One honest note for the spreadsheet-proud: if your workbook *is* the deliverable — a living financial model with formulas people depend on — keep it in Excel. Cursor analyzes exports; it doesn't replace the workbook.
+
+## Workaround 2: Let the Agent Script Its Way In
+
+If you can't or won't convert — say you receive a fresh `.xlsx` by email every Monday — ask the agent to read it for you:
+
+```text
+There's a file called pipeline-export.xlsx in this folder. Don't try to
+read it directly — write and run a small Python script to load it and
+show me the sheet names, column headers, and row counts first.
+```
+
+The agent writes a short script (typically with a library like `pandas` or `openpyxl`, [the standard tooling for this](https://forum.cursor.com/t/xlsx-support/102387)) and runs it in Cursor's terminal with your approval. This is the same fallback Cursor reaches for on its own when it hits a binary file; asking for it explicitly just skips the mangled-bytes attempt. It works fine — the Cursor team's caveat is only that it's [heavier on tokens](https://forum.cursor.com/t/cursor-cant-handle-attached-docx-files/165095) than a CSV.
+
+Two niche extras, for completeness. If you need formulas and formatting preserved as text, the open-source [cursor-reads-xlsx](https://www.npmjs.com/package/cursor-reads-xlsx) CLI dumps an `.xlsx` — values, formulas, cell colors, merged cells — into text files an agent can read, and ships a Cursor rule template so the agent uses it automatically. And if your spreadsheet lives in an external system (Google Sheets, SharePoint), an [MCP connection](https://forum.cursor.com/t/using-a-manual-test-manifest-excel-csv-with-agents-or-bugbot-for-regression-coverage/165055) can let the agent query it at the source instead of shuttling exports — a deeper setup than most PMs need on day one.
+
+## A Concrete Walkthrough: From Messy Export to Answer
+
+Here's the shape of a real session, using the kind of file PMs actually get: a feature-request export with duplicates, inconsistent casing, and a stakeholder waiting. Assume you've exported `requests.csv` into your project folder and opened chat (in [Agent mode](/guides/cursor-modes-explained), so it can run the analysis rather than just talk about it).
+
+**Step 1 — make it prove it can see the data:**
+
+```text
+@requests.csv — before any analysis, tell me the column names, the total
+row count, and the date range in the created_at column.
+```
+
+Never skip this. If the row count doesn't match what Excel showed you, stop; you're debugging the export, not the analysis.
+
+**Step 2 — dedupe, with receipts:**
+
+```text
+Dedupe on customer_email, treating emails as case-insensitive and
+ignoring leading/trailing spaces. Keep the most recent row per customer.
+Write the result to requests_clean.csv — don't modify the original.
+Tell me how many rows you removed and show me five examples.
+```
+
+Two habits are embedded there. The original file stays read-only, so you can always rerun from scratch. And demanding removed-row examples means you *see* the dedupe logic working instead of trusting a summary number.
+
+**Step 3 — pivot and summarize:**
+
+```text
+From requests_clean.csv, build a summary of request count by
+product_area and customer_tier. Then give me the top 5 product areas by
+enterprise-tier requests, with counts, and one sentence per area
+summarizing the common theme in the request_text column.
+```
+
+That last sentence is where this beats a pivot table: counting is what spreadsheets do, but "read 80 free-text requests and name the theme" is exactly the work that used to take an afternoon. For small files the agent may answer from a direct read; for anything with thousands of rows, ask it to compute the numbers with a script — deterministic code arithmetic beats a language model doing mental math across rows, every time. My [analyze-data module](/advanced/analyze-data) runs a full version of this workflow — funnels, ROI models, A/B readouts — with practice files included.
+
+## Before a Number Reaches Your Board Deck
+
+AI analysis fails confidently: the summary reads clean while a join silently dropped rows. Three checks catch nearly everything, and they take five minutes:
+
+1. **Reconcile the row chain.** Started with 4,812, removed 391 duplicates, 4,421 remain. If the arithmetic doesn't hold up, ask why before going further.
+2. **Spot-check one aggregate by hand.** Take your headline number, ask for the underlying rows as a CSV, and verify a few against the original export yourself.
+3. **Run the smell test.** If enterprise requests supposedly tripled month-over-month, ask whether that's plausible for your business before your CFO asks you.
+
+Ask the agent to compute numbers with executed code rather than estimate them, and never ask it to hand-edit a CSV as text — a script writing a new file is always the safer path. Five minutes of checking is cheaper than the meeting where someone catches the error.
+
+## When to Use Claude Code Instead
+
+Cursor and Claude Code handle spreadsheets almost identically — neither reads `.xlsx` natively, both lean on CSV and scripts — so this is a workflow choice, not a capability gap. Cursor wins when you're already living in it: files visible in the editor, results one tab away from the PRD they'll feed (speaking of which: [writing a PRD in Cursor](/guides/write-a-prd-in-cursor) is the natural next stop for analysis output). Claude Code, Anthropic's terminal-based agent, shines for repeatable jobs — the monthly report where a saved script becomes a rerun button — and for people who don't want an editor open at all. I wrote a full [Claude Code data-analysis guide](https://ccforeveryone.com/guides/claude-code-for-data-analysts) covering that side, including A/B significance testing done properly. If you're torn: use whichever is already open. The prompts in this guide work in both.
+
+## Try It With Real Files, Free
+
+If you haven't set Cursor up yet, [installation takes about fifteen minutes](/getting-started/installation), and a couple of [keyboard shortcuts](/guides/cursor-keyboard-shortcuts) cover most of the interface you'll touch. To make the tool reliably yours, a few [Cursor rules](/guides/cursor-rules-for-non-developers) — like "never modify the original data file" — turn the habits in this guide into defaults you stop having to remember.
+
+All of this comes from my [free Cursor course for product managers](/): hands-on lessons that run inside Cursor itself, including a full data-analysis module with practice CSVs. No videos, no upsell — you just open the folder and start.
+
+## FAQ
+
+### Can Cursor read Excel files directly?
+
+No. An `.xlsx` file is a binary format, and Cursor's chat cannot read it as text: the attach button [intentionally rejects](https://forum.cursor.com/t/unable-to-attach-spreadsheets-when-clicking-the-paperclip-icon-from-cursor-agents/166305) `.xlsx`, and @-mentioning or dragging one in [mangles the bytes](https://forum.cursor.com/t/cursor-cant-handle-attached-docx-files/165095). The reliable paths are exporting to CSV, which Cursor reads directly, or asking the agent to read the `.xlsx` with a small script it writes and runs itself.
+
+### What is the fastest way to get Excel data into Cursor?
+
+Export the sheet as a CSV (File → Save As → CSV in Excel, one export per tab), save it into your open project folder, @-mention it in chat, and ask your question. A Cursor team member [called CSV the smoother path](https://forum.cursor.com/t/unable-to-attach-spreadsheets-when-clicking-the-paperclip-icon-from-cursor-agents/166305), since plain text is read directly and accurately.
+
+### Does converting .xlsx to CSV lose anything?
+
+Yes: formulas become their computed values, and formatting, charts, and extra tabs are dropped, since a CSV holds one tab of plain values. For analyzing the data, values are what you want anyway. If formulas or formatting matter, have the agent script its way into the `.xlsx`, or use a converter like [cursor-reads-xlsx](https://www.npmjs.com/package/cursor-reads-xlsx) that dumps them as text.
+
+### Can Cursor analyze data or just read it?
+
+It analyzes. Ask in plain English for dedupes, pivots, segment summaries, or funnel math, and the agent either reasons over small files directly or writes and runs a small script for anything bigger. My [analyze-data module](/advanced/analyze-data) walks the full workflow with practice files.
+
+### Should I use Cursor or Claude Code for spreadsheet analysis?
+
+They handle it nearly the same way: neither reads `.xlsx` natively, and both write scripts to analyze data. Cursor makes sense if you already live there; [Claude Code](https://ccforeveryone.com/guides/claude-code-for-data-analysts) shines for repeated monthly jobs built around saved, rerunnable scripts. Pick whichever you already have open.

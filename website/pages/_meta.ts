@@ -5,6 +5,7 @@ export default
   "fundamentals": "Module 1: Fundamentals",
   "advanced": "Module 2: Advanced PM Work",
   "nano-banana": "Module 3: Nano Banana",
+  "guides": "Guides",
   "company-context": "TaskFlow Context",
   "search": "Search"
 }

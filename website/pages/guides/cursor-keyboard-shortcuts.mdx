@@ -1,0 +1,141 @@
+---
+title: 'Cursor Keyboard Shortcuts for PMs: The 15 That Matter'
+description: 'A curated Cursor keyboard shortcuts list for non-developers: the 15 that matter, Mac and Windows, checked against the official docs in August 2026.'
+keywords: 'cursor keyboard shortcuts, cursor shortcuts, how to open terminal in cursor, cursor hotkeys, cursor shortcuts mac, cursor shortcuts windows, cursor keybindings'
+schema:
+  "@context": "https://schema.org"
+  "@graph":
+    - "@type": "Article"
+      headline: "Cursor Keyboard Shortcuts for PMs: The 15 That Matter"
+      description: "A curated Cursor keyboard shortcuts list for non-developers: the 15 that matter, Mac and Windows, checked against the official docs in August 2026."
+      author:
+        "@type": "Person"
+        name: "Carl Vellotti"
+        url: "https://fullstackpm.com"
+      datePublished: "2026-08-05"
+      dateModified: "2026-08-05"
+      publisher:
+        "@type": "Organization"
+        name: "Cursor for Product Managers"
+        url: "https://cursorforpms.com"
+    - "@type": "FAQPage"
+      mainEntity:
+        - "@type": "Question"
+          name: "How do I open the terminal in Cursor?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "Press Ctrl+` (Control and the backtick key) on both Mac and Windows. That toggles the terminal panel at the bottom of the window. You can also use the menu (View, then Terminal) or open the command palette and type Toggle Terminal. Note it is Control on Mac too, not Command."
+        - "@type": "Question"
+          name: "Why do Cmd+I and Cmd+L do the same thing in Cursor?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "Since Cursor's 2.0 redesign in late 2025, both toggle the AI sidepanel by default. Before that, Cmd+L opened Chat and Cmd+I opened Composer as separate features. Cursor merged them into one Agent panel, and the docs now list both shortcuts as Toggle Sidepanel unless you rebind one to a specific mode."
+        - "@type": "Question"
+          name: "Do VS Code keyboard shortcuts work in Cursor?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "Yes. Cursor is built on VS Code and uses its keybindings as the baseline, so shortcuts like Ctrl+` for the terminal, Cmd+B for the sidebar, and Cmd+Shift+P for the command palette carry over. Cursor then layers its own AI shortcuts on top, and every binding can be remapped in Keyboard Shortcuts settings."
+        - "@type": "Question"
+          name: "How do I accept or reject Cursor's suggested changes with the keyboard?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "When the agent has suggested changes waiting, Cmd+Return accepts all of them and Cmd+Backspace rejects all of them, per the official shortcuts reference. On Windows that is Ctrl+Enter and Ctrl+Backspace. You can also accept or reject file by file with the buttons in the review bar."
+        - "@type": "Question"
+          name: "How do I see every keyboard shortcut in Cursor?"
+          acceptedAnswer:
+            "@type": "Answer"
+            text: "Open the command palette with Cmd+Shift+P (Ctrl+Shift+P on Windows) and search for Keyboard Shortcuts. The official docs also mention pressing Cmd+R then Cmd+S. That opens a searchable list of every binding, and all of them, including the AI-specific ones, can be remapped there."
+---
+
+# Cursor Keyboard Shortcuts for PMs: The 15 That Matter
+
+*Last updated: August 5, 2026*
+
+The official [Cursor keyboard shortcuts reference](https://cursor.com/docs/reference/keyboard-shortcuts) lists 47 shortcuts across six tables. I counted them row by row on August 5, 2026. Most of them are for people writing code all day: cycling AI models, accepting the next word of an autocomplete suggestion, toggling file-reading strategies.
+
+You don't need 47. I teach Cursor to product managers through [a free course](/), and the honest number of shortcuts a PM uses daily is about 15. This page is that list, with Mac and Windows columns and a plain-English line on what each one is actually for.
+
+One note on the columns before we start. Cursor's official reference only shows Mac notation, and it points to [VS Code's keybindings](https://code.visualstudio.com/docs/getstarted/keybindings) as the baseline, since Cursor is built on VS Code. The Windows column below follows the standard VS Code convention of swapping Cmd for Ctrl, which I've verified for the editor-level shortcuts against [VS Code's official Windows reference](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf). If a binding ever looks off on your machine, the shortcut settings panel (last row of the table) is the source of truth for *your* install.
+
+## The Table
+
+Checked against [cursor.com/docs](https://cursor.com/docs/reference/keyboard-shortcuts) on August 5, 2026.
+
+| What you want to do | Mac | Windows | Why a PM cares |
+|---|---|---|---|
+| Open/close the AI pane | `Cmd+L` (or `Cmd+I`) | `Ctrl+L` (or `Ctrl+I`) | The main event. This is where you talk to the agent. Both keys do the same thing now — see history below. |
+| Start a new chat | `Cmd+N` | `Ctrl+N` | Fresh conversation for a new task, so your PRD chat doesn't bleed into your research chat. |
+| Open a new chat tab | `Cmd+T` | `Ctrl+T` | Run a second conversation alongside the first, like browser tabs. |
+| Accept all suggested changes | `Cmd+Return` | `Ctrl+Enter` | The agent edited your files and you approve. |
+| Reject all suggested changes | `Cmd+Backspace` | `Ctrl+Backspace` | The agent edited your files and you don't. |
+| Add selected text to chat | `Cmd+Shift+L` | `Ctrl+Shift+L` | Highlight a paragraph in a doc, send it to the AI as context. |
+| Switch between modes | `Shift+Tab` (in chat) | `Shift+Tab` (in chat) | Rotates Agent/Plan/Ask. The [modes guide](/guides/cursor-modes-explained) explains when to use which. |
+| Open the mode menu | `Cmd+.` | `Ctrl+.` | Same idea as a menu instead of a cycle. |
+| Inline edit | `Cmd+K` | `Ctrl+K` | Select text in a file, describe a change, get it rewritten in place. Great for tightening one paragraph. |
+| **Open/close the terminal** | ``Ctrl+` `` | ``Ctrl+` `` | Yes, `Ctrl` on Mac too. More on this below. |
+| AI prompt bar in the terminal | `Cmd+K` (in terminal) | `Ctrl+K` (in terminal) | Type plain English, get a shell command written for you. |
+| Command palette | `Cmd+Shift+P` | `Ctrl+Shift+P` | The search box for every feature Cursor has. When you forget a shortcut, this replaces it. |
+| Toggle the file sidebar | `Cmd+B` | `Ctrl+B` | Hide the file tree for more reading room. |
+| Markdown preview | `Cmd+Shift+V` | `Ctrl+Shift+V` | See your markdown doc formatted, not as raw text. Caveat below. |
+| Open shortcut settings | `Cmd+R` then `Cmd+S` | `Ctrl+R` then `Ctrl+S` | The full searchable list, where everything can be remapped. |
+
+The first nine come from Cursor's [official shortcuts reference](https://cursor.com/docs/reference/keyboard-shortcuts). The terminal, sidebar, palette, and markdown preview rows are VS Code baseline behavior that Cursor inherits, per [VS Code's documented defaults](https://code.visualstudio.com/docs/getstarted/keybindings), which is exactly what the Cursor docs tell you to use as the baseline.
+
+Two shortcuts I deliberately left out: `Tab` to accept autocomplete suggestions (it fires on its own, you don't need to learn it) and `Cmd+/` to switch AI models (worth knowing exists, not worth a reflex).
+
+## How to Open the Terminal in Cursor
+
+This deserves its own section because it's one of the most-searched Cursor questions, and the answer has a trap in it.
+
+**Press ``Ctrl+` `` — that's Control plus the backtick key, the one above Tab.** It toggles the terminal panel at the bottom of the window, open and closed. The trap: on Mac it is genuinely `Ctrl`, not `Cmd`. This is [VS Code's default](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-macos.pdf) and Cursor keeps it, which makes it one of the only common shortcuts that's identical on both platforms.
+
+If the backtick chord doesn't stick in your memory, two mouse routes work: the **View menu, then Terminal**, or the command palette (`Cmd+Shift+P`) and type "Toggle Terminal."
+
+Two things worth knowing once it's open:
+
+1. **You rarely need to type commands yourself.** Cursor's agent [runs terminal commands directly](https://cursor.com/docs/agent/terminal) as part of doing work you asked for, and your run mode controls when it asks permission first. As a PM, you'll mostly *watch* the terminal, not drive it.
+2. **When you do need to drive it, press `Cmd+K` inside the terminal.** That opens Cursor's [prompt bar](https://cursor.com/docs/reference/keyboard-shortcuts), where you type what you want in English ("show me the largest files in this folder") and it writes the command. `Cmd+Return` runs it.
+
+If you're so new that "open a folder" is still a question, start with [how to open a folder in Cursor](/guides/how-to-open-a-folder-in-cursor) — the terminal opens *in* whatever folder you have open, which is why that matters.
+
+## Shortcuts That Changed (Why Old Guides Are Wrong)
+
+Cursor moves fast, and shortcut guides written before late 2025 will actively mislead you. The big one:
+
+**`Cmd+L` and `Cmd+I` used to be different features.** For most of Cursor's history, `Cmd+L` opened Chat and `Cmd+I` opened Composer, a separate multi-file editing interface. Cursor's [2.0 release in October 2025](https://cursor.com/changelog/2-0) rebuilt the interface around a single Agent, and as of August 2026 the [official reference](https://cursor.com/docs/reference/keyboard-shortcuts) lists both keys as "Toggle Sidepanel (unless bound to mode)." If a tutorial tells you `Cmd+I` opens something called Composer, it's describing a Cursor that no longer exists. (The behavior of these two keys was a moving target even before 2.0 — there are [community forum threads](https://forum.cursor.com/t/keyboard-shortcuts-for-chat-are-swapped/55920) from early 2025 documenting the shuffles.)
+
+**The markdown preview caveat.** `Cmd+Shift+V` opens markdown preview when your focus is in the editor. But if your focus is in the *chat input* and your clipboard holds code or a log, Cursor uses the same chord to [add the clipboard to the input box](https://cursor.com/docs/reference/keyboard-shortcuts). Same keys, different results depending on where your cursor is. Click into the document first, then preview.
+
+**Everything is remappable.** If a default fights your muscle memory, the docs are explicit that [all keybindings, including Cursor-specific ones, can be remapped](https://cursor.com/docs/reference/keyboard-shortcuts) in Keyboard Shortcuts settings. Fair warning from the trenches: rebinding the core AI keys like `Cmd+L` has a history of [behaving unpredictably](https://forum.cursor.com/t/unable-to-change-the-add-to-chat-shortcut/146229), so my advice for non-developers is to learn the defaults instead.
+
+## The Honest Take: You Need Fewer Than You Think
+
+Here's the thing nobody selling you a 47-row cheat sheet says: in Cursor, the keyboard shortcut is often the *slow* way. You can type "open the terminal," "preview this file," or "reject those changes" straight into the chat, and the agent does it. The shortcuts worth making reflexes are the ones you use while *deciding* — open the pane (`Cmd+L`), accept (`Cmd+Return`), reject (`Cmd+Backspace`), switch modes (`Shift+Tab`). Maybe six total. The rest of this page exists so you can look the others up when you need them, which is a different job than memorizing.
+
+Once the shortcuts feel boring, the interesting work starts: [writing PRDs in Cursor](/guides/write-a-prd-in-cursor), [setting up rules](/guides/cursor-rules-for-non-developers) so the AI knows your context, and [pointing it at your spreadsheets](/guides/can-cursor-read-excel-files).
+
+## Learn Cursor by Using It, Free
+
+I built a [free interactive course](/) that teaches Cursor for PM work — inside Cursor itself, with the AI as your instructor. You'll use every shortcut on this page in context, which is how they actually stick. [Installation takes a few minutes](/getting-started/installation), and the [introduction](/getting-started/introduction) explains what you'll build.
+
+## FAQ
+
+### How do I open the terminal in Cursor?
+
+Press ``Ctrl+` `` (Control and the backtick key) on both Mac and Windows. That toggles the terminal panel at the bottom of the window. You can also use the menu (View, then Terminal) or open the command palette and type "Toggle Terminal." Note it is Control on Mac too, not Command.
+
+### Why do Cmd+I and Cmd+L do the same thing in Cursor?
+
+Since Cursor's 2.0 redesign in late 2025, both toggle the AI sidepanel by default. Before that, `Cmd+L` opened Chat and `Cmd+I` opened Composer as separate features. Cursor merged them into one Agent panel, and the docs now list both shortcuts as "Toggle Sidepanel" unless you rebind one to a specific mode.
+
+### Do VS Code keyboard shortcuts work in Cursor?
+
+Yes. Cursor is built on VS Code and uses its keybindings as the baseline, so shortcuts like ``Ctrl+` `` for the terminal, `Cmd+B` for the sidebar, and `Cmd+Shift+P` for the command palette carry over. Cursor then layers its own AI shortcuts on top, and every binding can be remapped in Keyboard Shortcuts settings.
+
+### How do I accept or reject Cursor's suggested changes with the keyboard?
+
+When the agent has suggested changes waiting, `Cmd+Return` accepts all of them and `Cmd+Backspace` rejects all of them, per the official shortcuts reference. On Windows that's `Ctrl+Enter` and `Ctrl+Backspace`. You can also accept or reject file by file with the buttons in the review bar.
+
+### How do I see every keyboard shortcut in Cursor?
+
+Open the command palette with `Cmd+Shift+P` (`Ctrl+Shift+P` on Windows) and search for "Keyboard Shortcuts." The official docs also mention pressing `Cmd+R` then `Cmd+S`. That opens a searchable list of every binding, and all of them — including the AI-specific ones — can be remapped there.
